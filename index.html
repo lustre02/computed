@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>计算器</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			body {
+				padding: 0;
+				margin: 0;
+			}
+
+			.container {
+				width: 100vw;
+				position: fixed;
+				bottom: 0;
+			}
+
+			.computed-wrap {
+				height: 200px;
+				position: relative;
+				width: 90%;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+
+			.computed-result {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				font-size: 30px;
+				transition: 0.5s;
+			}
+
+			.btns {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+
+			.btns li {
+				width: 25vw;
+				height: 25vw;
+				background-color: #eee;
+				text-align: center;
+				line-height: 25vw;
+				transition: 0.25s;
+			}
+
+			.btns li:hover {
+				background-color: #e5e5e5;
+			}
+		</style>
+		<script type="text/javascript">
+			onload = function() {
+				(function() {
+					const btns = document.getElementsByClassName("btns")[0].children;
+					const result = document.getElementsByClassName("computed-result")[0];
+					const btnFunction = {
+						"X": () => {
+							if (result.innerHTML.length > 1) {
+								result.innerHTML = result.innerHTML.substr(0, result.innerHTML.length - 1)
+							} else {
+								result.innerHTML = 0
+							}
+						},
+						"C": () => {
+							result.innerHTML = "0";
+						},
+						"=": () => {
+							result.innerHTML = `${eval(result.innerHTML)}`;
+						}
+					}
+					for (var i = 0; i < btns.length; i++) {
+						const btn = btns[i];
+						const value = btn.innerHTML;
+						btn.onclick = function() {
+							if (btnFunction[value]) {
+								btnFunction[value]();
+							} else {
+								if (result.innerHTML == '0') {
+									if (!isNaN(parseInt(value))) {
+										result.innerHTML = value
+										return;
+									}
+								}
+								result.innerHTML += value
+							}
+						}
+					}
+				})();
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="computed-wrap">
+				<p class="computed-result">0</p>
+			</div>
+			<ul class="btns">
+				<li>C</li>
+				<li>%</li>
+				<li>X</li>
+				<li>/</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li>*</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>-</li>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>+</li>
+				<li>00</li>
+				<li>0</li>
+				<li>.</li>
+				<li>=</li>
+			</ul>
+		</div>
+	</body>
+</html>
